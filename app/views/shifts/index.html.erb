@@ -1,0 +1,127 @@
+<div>
+  <div>
+    <h1>
+      Hospital Shadowing Shifts
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+  <% if current_user != nil %>
+   
+    <h2>
+      Add a New Shift
+    </h2>
+
+    
+      <form action="/insert_shift" method="post">
+        <div class="mb-3">
+          <label for="shift_name_box">
+            Shift Name
+          </label>
+
+          <input type="text" id="shift_name_box" name="query_shift_name" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="location_box">
+            Location
+          </label>
+
+          <input type="text" id="location_box" name="query_location" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="date_box">
+            Date
+          </label>
+
+          <input type="datetime-local" id="date_box" name="query_date" required>
+        </div>
+
+        <button class="btn btn-primary">
+          Create Shift
+        </button>
+      </form>
+    <% else %>
+     <p> You must <a href = "/users/sign_in">sign in</a> to add a shift. </p>
+    <% end %>
+    </div>
+  </div>
+
+<hr>
+<div>
+  <div>
+  <h2>Upcoming Shifts</h2>
+    <table class="table table-bordered">
+     <tr>
+        <th>
+          Shift Name
+        </th>
+
+        <th>
+          Location
+        </th>
+
+        <th>
+          Date & Time
+        </th>        
+      </tr>
+
+      <% @upcoming_shifts.each do |a_shift| %>
+      <tr>
+        <td><%= a_shift.shift_name %></td>
+        <td><%= a_shift.location %></td>
+        <td><%= a_shift.date.strftime("%m/%d/%Y at %I:%M %p").downcase %></td>
+        <!--<td>
+          <a href="/shifts/<%#= a_shift.id %>/dances" class="btn btn-outline-primary">Set List Details</a>
+        </td>-->
+        <% if current_user != nil %>
+          <td>
+            <a href="/shifts/<%= a_shift.id %>" class="btn btn-outline-primary">
+              Edit/Delete Shift
+            </a>
+          </td>
+        <% else %>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <hr>
+
+<!-- Past shifts -->
+<div>
+  <h2>Past shifts</h2>
+  <table class="table table-bordered">
+    <tr>
+      <th>Shift Name</th>
+      <th>Location</th>
+      <th>Date & Time</th>
+      <th>Actions</th>
+    </tr>
+    <% @past_shifts.each do |a_shift| %>
+      <tr>
+        <td><%= a_shift.shift_name %></td>
+        <td><%= a_shift.location %></td>
+        <td><%= a_shift.date.strftime("%m/%d/%Y at %I:%M %p").downcase %></td>
+        <!--<td>
+          <a href="/shifts/<%#= a_shift.id %>/dances" class="btn btn-outline-primary">Set List Details</a>
+        </td>-->
+         <% if current_user != nil %>
+        <td>
+           <a href="/shifts/<%= a_shift.id %>" class="btn btn-outline-primary">
+              Edit/Delete Shift
+            </a>
+        </td>
+    <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
+</div>
+
+<hr>
