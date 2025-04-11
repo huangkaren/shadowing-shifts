@@ -1,7 +1,20 @@
 Rails.application.routes.draw do
 
-  # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
+# Routes for the Shifts resource:
 
-  # get "/your_first_screen" => "pages#first"
+  # CREATE
+  post("/insert_shift", { :controller => "shifts", :action => "create" })
+          
+  # READ
+  get("/shifts", { :controller => "shifts", :action => "index" })
+  
+  get("/shifts/:path_id", { :controller => "shifts", :action => "shift" })
+  
+  # UPDATE
+  
+  post("/modify_shift/:path_id", { :controller => "shifts", :action => "update" })
+  
+  # DELETE
+  get("/delete_shift/:path_id", { :controller => "shifts", :action => "destroy" })
   
 end
